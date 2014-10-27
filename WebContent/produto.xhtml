@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:composition template="/_template.xhtml"> 
+	<ui:define name="title">Produto</ui:define>
+		<ui:define name="corpo">
+
+		<h:form>
+			<fieldset>
+				<legend>
+					<h:outputText styleClass="fa fa-plus-square" value=" Novo Produto"
+						rendered="#{produtoBean.produto.id == null}" />
+					<h:outputText styleClass="fa fa-pencil-square-o"
+						value=" Editar Produto"
+						rendered="#{produtoBean.produto.id != null}" />
+				</legend>
+
+				<h:inputHidden value="#{produtoBean.produto.id}" />
+
+				<h:outputLabel value="Nome:" for="nome" />
+				<h:inputText id="nome" value="#{produtoBean.produto.nome}" />
+
+				<h:outputLabel value="Descrição:" for="descricao" />
+				<h:inputText id="descricao" value="#{produtoBean.produto.descricao}" />
+
+				<h:outputLabel value="Preço:" for="preco" />
+				<h:inputText id="preco" value="#{produtoBean.produto.preco}" />
+
+
+				<h:commandLink action="#{produtoBean.grava}"
+					rendered="#{produtoBean.produto.id == null}" value=" Adicionar"
+					styleClass="fa fa-plus-square">
+					<f:ajax render="@form" execute="@form" />
+				</h:commandLink>
+
+				<h:commandLink action="#{produtoBean.grava}"
+					rendered="#{produtoBean.produto.id != null}" value=" Salvar"
+					styleClass="fa fa-floppy-o">
+					<f:ajax render="@form" execute="@form" />
+				</h:commandLink>
+
+				<h:commandLink action="#{produtoBean.cancela}"
+					rendered="#{produtoBean.produto.id != null}" value=" Cancela"
+					styleClass="fa-times-circle">
+					<f:ajax render="@form" />
+				</h:commandLink>
+			</fieldset>
+
+			<h2>Listagem de Produtos</h2>
+
+			<h:dataTable value="#{produtoBean.produtos}" var="produto"
+				rowClasses="impar,par" styleClass="dados">
+				<h:column headerClass="col_id">
+					<f:facet name="header">Id</f:facet>
+					#{produto.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Nome</f:facet>
+					#{produto.nome}
+					<f:facet name="footer">
+						<h:outputText style="font-weight: bold;" value="Total" />
+					</f:facet>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Descricão</f:facet>
+					#{produto.descricao}
+					<f:facet name="footer">
+						<h:outputText style="font-weight: bold;"
+							value="(#{produtoBean.produtos.size()} itens)" />
+					</f:facet>
+				</h:column>
+				<h:column headerClass="col_price">
+					<f:facet name="header">Preço</f:facet>
+					<h:outputText value="#{produto.preco}">
+						<f:convertNumber currencySymbol="R$ " type="currency" />
+					</h:outputText>
+					<f:facet name="footer">
+						<h:outputText style="font-weight: bold;"
+							value="#{produtoBean.total}">
+							<f:convertNumber currencySymbol="R$ " type="currency" />
+						</h:outputText>
+					</f:facet>
+				</h:column>
+				<h:column headerClass="col_actions">
+					<f:facet name="header">Ações</f:facet>
+
+					<h:commandLink action="#{produtoBean.remove(produto)}" value=""
+						styleClass="fa fa-times">
+						<f:ajax render="@form" />
+					</h:commandLink>
+					<h:commandLink value="" styleClass="fa fa-pencil-square-o">
+						<f:setPropertyActionListener target="#{produtoBean.produto}"
+							value="#{produto}" />
+						<f:ajax render="@form" />
+					</h:commandLink>
+
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:composition template="/_template.xhtml"> 
+	<ui:define name="title">Nota Fiscal</ui:define>
+		<ui:define name="corpo">
+
+		<h:form>
+			<fieldset>
+				<legend>
+					<h:outputText styleClass="fa fa-plus-square" value=" Nova Nota wizard 1" />
+				</legend>
+
+				<h:outputLabel value="CNPJ do Cliente:" for="cnpj" />
+				<h:inputText id="cnpj" value="#{wizardBean.notaFiscal.cnpj}" />
+				
+				<h:outputLabel value="Data:" for="data" />
+				<h:inputText id="data" value="#{wizardBean.notaFiscal.data.time}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+				</h:inputText>
+
+				
+
+				<h:commandLink action="#{wizardBean.avancar}"
+					value=" Avançar passo 2"
+					styleClass="fa fa-plus-square">
+					<f:ajax render="@form" execute="@form" />
+				</h:commandLink>
+
+			</fieldset>
+		</h:form>
+	</ui:define>
+	</ui:composition>
+</html>

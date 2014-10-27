@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:composition template="/_template.xhtml"> 
+	<ui:define name="title">Nota Fiscal</ui:define>
+		<ui:define name="corpo">
+
+		<h:form>
+			<fieldset>
+				<legend>
+					<h:outputText styleClass="fa fa-plus-square" value=" Nova Nota wizard 2" />
+				</legend>
+ 
+				<h:outputLabel value="CNPJ: #{wizardBean.notaFiscal.cnpj}" />
+
+			</fieldset>
+
+			<fieldset>
+				<legend>
+					<h:outputText styleClass="fa fa-plus-square" value=" Dados do item"/>
+				</legend>
+
+				<h:outputLabel value="Produto:" for="produto" />
+				<h:selectOneMenu id="produto" value="#{wizardBean.idProduto}">
+					<f:selectItems value="#{produtoBean.produtos}" var="produto"
+					itemValue="#{produto.id}" itemLabel="#{produto.nome}"/>
+				</h:selectOneMenu>
+				
+				<h:outputLabel value="Quantidade:" for="quantidade" />
+				<h:inputText value="#{wizardBean.item.quantidade}"/>
+				
+				<h:commandLink action="#{wizardBean.guardaItem}" value=" Guarda Item"
+					styleClass="fa fa-plus-square">
+				</h:commandLink>
+
+			</fieldset>
+
+			<h2>Listagem de Itens da nota</h2>
+			<h:dataTable value="#{wizardBean.notaFiscal.itens}" var="item" styleClass="dados" rowClasses="impar,par">
+				<h:column>
+					<f:facet name="header">Produto</f:facet>
+					#{item.produto.nome}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Valor Unitário</f:facet>
+					<h:outputText value="#{item.valorUnitario}">
+						<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Quantidade</f:facet>
+					#{item.quantidade}
+				</h:column>
+				<h:column>
+					<f:facet name="header">Total</f:facet>
+					<h:outputText value="#{item.total}">
+						<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR"/>
+					</h:outputText>
+				</h:column>
+			</h:dataTable>
+			
+			<h:commandLink action="wizard1?faces-redirect=true"
+					value=" Votar passo 1"
+					styleClass="fa fa-plus-square">
+					<f:ajax render="@form" execute="@form" />
+				</h:commandLink>
+			
+			<h:commandLink action="#{wizardBean.grava}"
+				value=" Finalizar"
+				styleClass="fa fa-plus-square">
+				<f:ajax render="@form" execute="@form" />
+			</h:commandLink>
+
+		</h:form>
+	</ui:define>
+	</ui:composition>
+</html>

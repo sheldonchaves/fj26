@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="title"/></title>
+	<h:outputStylesheet library="css" name="style.css" />
+
+	<link
+		href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+		rel="stylesheet" />
+</h:head>
+
+<h:body>
+
+	<div id="cabecalho">
+		<h1>
+			<i class="fa fa-file-text-o fa-3"></i> Sistema de Gestão de Nostas
+			Fiscais
+		</h1>
+	</div>
+
+	<div id="usuarioLogado">
+		<h:form>
+			<i class="fa fa-user"></i> #{usuarioLogadoBean.usuario.login}
+			<h:commandLink action="#{loginBean.efetuaLogout}" value=" Sair" styleClass="fa fa-sign-out"/>
+		</h:form>
+	</div>
+
+	<p:menubar>
+		<p:menuitem rendered="#{not usuarioLogadoBean.logado}" value="Cadastro" url="cadastro_usuario.xhtml" />
+		<p:menuitem rendered="#{usuarioLogadoBean.logado}" value="Produtos" url="produto.xhtml" />
+		<p:menuitem rendered="#{usuarioLogadoBean.logado}" value="Notas Fiscais" url="notafiscal.xhtml" />
+		<p:menuitem rendered="#{usuarioLogadoBean.logado}" value="Notas Wizard" url="wizard1.xhtml" />
+	</p:menubar>
+
+	<div id="conteudo">
+		<ui:insert name="corpo"/>
+	</div>
+
+	<div id="rodape">Copyright 2014. Todos os Direitos reservados a Sheldon.</div>
+
+</h:body>
+</html>
