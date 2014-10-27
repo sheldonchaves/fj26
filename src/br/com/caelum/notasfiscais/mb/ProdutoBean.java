@@ -1,5 +1,6 @@
 package br.com.caelum.notasfiscais.mb;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
@@ -11,7 +12,11 @@ import br.com.caelum.notasfiscais.modelo.Produto;
 
 @Named
 @ViewScoped
-public class ProdutoBean {
+public class ProdutoBean implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Produto produto = new Produto();
 	private List<Produto> produtos;
 

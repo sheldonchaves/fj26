@@ -17,17 +17,10 @@
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="" />
 
-			<!-- JPA não deve usar bean validation -->
-			<property name="javax.persistence.validation.mode" value="none" />
-
-			<!-- JPA atualiza as tabelas do banco automaticamente -->
-			<property name="javax.persistence.schema-generation.database.action"
-				value="create-or-extend-tables" />
-				
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="update"/>
-
-			<property name="eclipselink.logging.level.sql" value="FINE" />
-			<property name="eclipselink.logging.parameters" value="true" />
 
 		</properties>
 	</persistence-unit>
